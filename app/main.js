@@ -16,7 +16,7 @@ function prompt(term, newLine = true) {
   }
 }
 
-function deleteCurrentInput(term, input) {
+function deleteInput(term, input) {
   term.write("\b \b".repeat(input.length));
 }
 
@@ -24,9 +24,19 @@ async function initTerminalSession(term) {
   term.writeln(
     'hi cybernaut. this is an info terminal.\r\nuse "help" to see the available commands.',
   );
-  term.writeln("creating new session...");
-  await sleep(1300);
-  term.write(SHELL_PROMPT);
+  term.write("creating new session");
+  for (let i = 0; i < 2; i++) {
+    await sleep(300);
+    term.write(".");
+    await sleep(300);
+    term.write(".");
+    await sleep(300);
+    term.write(".");
+    await sleep(300);
+    deleteInput(term, "...");
+  }
+
+  prompt(term);
 }
 
 function pushCommandToHistory(store, command) {
@@ -91,7 +101,7 @@ function createOnKeyHandler(term) {
           currentHistoryPosition = Math.max(0, currentHistoryPosition - 1);
         }
 
-        deleteCurrentInput(term, userInput);
+        deleteInput(term, userInput);
         if (currentHistoryPosition === commandHistory.length) {
           userInput = "";
         } else {
