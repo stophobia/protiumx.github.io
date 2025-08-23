@@ -1,28 +1,28 @@
 import { HistorySize, TermColors, SHELL_PROMPT } from "./constants.js";
 import fileSystem from "./file-system.js";
 import { handleBackspace, isPrintableKeyCode, sleep } from "./utils.js";
-import { exec } from "./commands/index.js";
+import { exec, isTTY } from "./commands/index.js";
 import { exec as exit } from "./commands/exit.js";
 
 function printError(term, error) {
   term.write(TermColors.Red + error);
 }
 
-function prompt(term) {
-  term.write("\r\n" + SHELL_PROMPT);
+function prompt(term, newLine = true) {
+  if (newLine) {
+    term.write("\r\n" + SHELL_PROMPT);
+  } else {
+    term.write("\r" + SHELL_PROMPT);
+  }
 }
 
 function deleteCurrentInput(term, input) {
-  let i = 0;
-  while (i < input.length) {
-    term.write("\b \b");
-    i++;
-  }
+  term.write("\b \b".repeat(input.length));
 }
 
 async function initTerminalSession(term) {
   term.writeln(
-    'hi cybernaut. this is an info terminal.\r\nuse "help" to see the available commands.'
+    'hi cybernaut. this is an info terminal.\r\nuse "help" to see the available commands.',
   );
   term.writeln("creating new session...");
   await sleep(1300);
@@ -64,7 +64,7 @@ function createOnKeyHandler(term) {
   let currentProcessId = null;
 
   function onProcessExit() {
-    prompt(term);
+    prompt(term, !isTTY(currentProcessId));
     currentProcessId = null;
   }
 
@@ -85,7 +85,7 @@ function createOnKeyHandler(term) {
 
           currentHistoryPosition = Math.min(
             commandHistory.length,
-            currentHistoryPosition + 1
+            currentHistoryPosition + 1,
           );
         } else {
           currentHistoryPosition = Math.max(0, currentHistoryPosition - 1);
@@ -205,7 +205,7 @@ async function runTerminal() {
   term.onKey(createOnKeyHandler(term));
 }
 
-window.onload = function() {
+window.onload = function () {
   fileSystem.load().catch(console.error);
   runTerminal().catch(console.error);
 };
