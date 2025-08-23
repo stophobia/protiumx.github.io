@@ -13,6 +13,8 @@ import simia from "./simia.js";
 import uname from "./uname.js";
 import whoami from "./whoami.js";
 
+let helpContent = [];
+
 const SystemCommands = [
   cat,
   cowsay,
@@ -28,20 +30,27 @@ const SystemCommands = [
 
   {
     id: "help",
+    description: "prints this help",
     args: 0,
     async exec(term, _args) {
-      term.writeln("available commands:");
-      // Add 3 tabs for spacing. Align each description to the first command description
-      const firstCommandSpacing = SystemCommands[0].id.length + 12;
-      for (const { id, description } of SystemCommands) {
-        if (id === "help") continue;
+      if (helpContent.length === 0) {
+        // Add 3 tabs for spacing. Align each description to the first command description
+        const firstCommandSpacing = SystemCommands[0].id.length + 12;
+        for (const { id, description } of SystemCommands) {
+          helpContent.push(
+            "\t" +
+              colorize(TermColors.Green, id) +
+              getSpacing(firstCommandSpacing - id.length) +
+              description,
+          );
+        }
 
-        term.writeln(
-          "\t" +
-            colorize(TermColors.Green, id) +
-            getSpacing(firstCommandSpacing - id.length) +
-            description,
-        );
+        helpContent.sort();
+      }
+
+      term.writeln("available commands:");
+      for (let h of helpContent) {
+        term.writeln(h);
       }
     },
   },
