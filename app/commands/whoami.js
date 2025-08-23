@@ -10,24 +10,22 @@ const whoami = {
   async exec(term, _args) {
     term.writeln(colorize(TermColors.Green, "name: ") + "brian");
     term.writeln(
-      colorize(TermColors.Green, "current position: ") +
-      "cloud engineer"
+      colorize(TermColors.Green, "current position: ") + "cloud engineer",
     );
     term.writeln(
       colorize(TermColors.Green, "company: ") +
-      "CrowdStrike < https://crowdstrike.com >"
+        "CrowdStrike < https://crowdstrike.com >",
     );
     term.writeln(colorize(TermColors.Green, "location: ") + "Munich, Germany");
     term.writeln(
-      colorize(TermColors.Green, "fav languages: ") +
-      "[golang, rust, c]"
+      colorize(TermColors.Green, "fav languages: ") + "[golang, rust, c]",
     );
     term.writeln(
       colorize(TermColors.Green, "hobbies: ") +
-      "[photography, music, electronics]"
+        "[photography, music, electronics]",
     );
     term.writeln(
-      colorize(TermColors.Green, "blog: ") + "https://protiumx.dev/blog"
+      colorize(TermColors.Green, "blog: ") + "https://protiumx.dev/blog",
     );
     term.writeln(colorize(TermColors.Green, "last update: ") + LAST_UPDATE);
   },

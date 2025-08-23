@@ -13,14 +13,14 @@ const cat = {
       if (!file) {
         term.write(
           colorize(TermColors.Red, "[error]: ") +
-            `"${fileName}": No such a file`
+            `"${fileName}": No such a file`,
         );
         continue;
       }
       if (!file.name.includes(".md")) {
         term.write(
           colorize(TermColors.Red, "[error]: ") +
-            `"${file.name}": file encoding not supported`
+            `"${file.name}": file encoding not supported`,
         );
         continue;
       }

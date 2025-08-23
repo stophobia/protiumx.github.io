@@ -1,131 +1,141 @@
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
+    <meta name="title" content="protiumx - profile terminal" />
+    <meta name="description" content="Interact with my profile terminal" />
+    <meta
+      name="keywords"
+      content="brian mayo,software developer,infopage,blog,protiumx,protium"
+    />
 
-  <meta name="title" content="protiumx - profile terminal">
-  <meta name="description" content="Interact with my profile terminal" />
-  <meta name="keywords" content="brian mayo,software developer,infopage,blog,protiumx,protium">
+    <!-- Open Graph -->
+    <meta property="og:title" content="protiumx - info terminal" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://protiumx.dev/preview.jpg" />
+    <meta property="og:url" content="https://protiumx.dev" />
+    <meta
+      property="og:description"
+      content="Get my contact info, projects, CV and more with unix-like commands"
+    />
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="protiumx - info terminal">
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://protiumx.dev/preview.jpg">
-  <meta property="og:url" content="https://protiumx.dev">
-  <meta property="og:description" content="Get my contact info, projects, CV and more with unix-like commands">
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://protiumx.dev/" />
+    <meta property="twitter:title" content="protiumx - info terminal" />
+    <meta
+      property="twitter:description"
+      content="Get my contact info, projects, CV and more with unix-like commands"
+    />
+    <meta property="twitter:image" content="https://protiumx.dev/preview.jpg" />
 
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://protiumx.dev/">
-  <meta property="twitter:title" content="protiumx - info terminal">
-  <meta property="twitter:description" content="Get my contact info, projects, CV and more with unix-like commands">
-  <meta property="twitter:image" content="https://protiumx.dev/preview.jpg">
+    <link rel="author" href="https://github.com/protiumx" />
 
-  <link rel="author" href="https://github.com/protiumx" />
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="./xterm/xterm.css" />
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-  <link rel="stylesheet" href="./xterm/xterm.css">
+    <title>protiumx</title>
 
-  <title>protiumx</title>
+    <script src="./xterm/xterm.js"></script>
+    <script src="./xterm/xterm-addon-fit.js"></script>
+    <script src="./xterm/xterm-addon-web-links.js"></script>
 
-  <script src="./xterm/xterm.js"></script>
-  <script src="./xterm/xterm-addon-fit.js"></script>
-  <script src="./xterm/xterm-addon-web-links.js"></script>
-
-  <style media="screen">
-    @font-face {
-      font-family: 'Fira Code';
-      src: url('./fonts/FiraCode-Regular.woff') format('woff');
-      font-weight: 400;
-      font-style: normal;
-    }
-
-    :root {
-      --color-highlight: #c115c7;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      background-color: #000;
-      color: white;
-      margin: 0;
-      overflow-x: auto;
-      overflow-y: hidden;
-      padding: 0;
-    }
-
-    .content {
-      height: 100%;
-      width: 100%;
-      display: flex;
-      flex-flow: column nowrap;
-      align-items: center;
-      justify-content: center;
-      padding: 30px;
-      min-width: 700px;
-    }
-
-    @media (max-width: 768px) {
-      .content {
-        justify-content: flex-start;
+    <style media="screen">
+      @font-face {
+        font-family: "Fira Code";
+        src: url("./fonts/FiraCode-Regular.woff") format("woff");
+        font-weight: 400;
+        font-style: normal;
       }
-    }
 
-    .content .terminal-container {
-      -webkit-box-shadow: 5px 5px 5px #cf442b;
-      box-shadow: 5px 5px 5px #cf442b;
-      border: 2px solid var(--color-highlight);
-      overflow: hidden;
-      padding: 1px;
-      flex-shrink: 0;
-      box-sizing: border-box;
-      max-width: 100%;
-      position: relative;
-    }
+      :root {
+        --color-highlight: #c115c7;
+      }
 
-    .xterm *::-webkit-scrollbar {
-      display: none;
-      position: relative;
-    }
+      * {
+        box-sizing: border-box;
+      }
 
-    #term {
-      padding: 4px;
-    }
+      body {
+        background-color: #000;
+        color: white;
+        margin: 0;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 0;
+      }
 
-    .xterm * {
-      scrollbar-width: none;
-    }
+      .content {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+        justify-content: center;
+        padding: 30px;
+        min-width: 700px;
+      }
 
-    #downlad {
-      display: none;
-    }
-  </style>
-</head>
+      @media (max-width: 768px) {
+        .content {
+          justify-content: flex-start;
+        }
+      }
 
-<body>
-  <noscript>
-    You need to enable JavaScript to run this app.
-  </noscript>
+      .content .terminal-container {
+        -webkit-box-shadow: 5px 5px 5px #cf442b;
+        box-shadow: 5px 5px 5px #cf442b;
+        border: 2px solid var(--color-highlight);
+        overflow: hidden;
+        padding: 1px;
+        flex-shrink: 0;
+        box-sizing: border-box;
+        max-width: 100%;
+        position: relative;
+      }
 
-  <main class="content">
+      .xterm *::-webkit-scrollbar {
+        display: none;
+        position: relative;
+      }
 
-    <div class="terminal-container">
-      <div id="term"></div>
-    </div>
+      #term {
+        padding: 4px;
+      }
 
-    <a id="download" href=""></a>
-  </main>
+      .xterm * {
+        scrollbar-width: none;
+      }
 
-  <script src="./wasm/wasm_exec.js"></script>
-  <script type="module" src="./app/main.js?v=202409241951"></script>
-</body>
+      #downlad {
+        display: none;
+      }
+    </style>
+  </head>
 
+  <body>
+    <noscript>
+      You need to enable JavaScript to run the info terminal.
+    </noscript>
+
+    <main class="content">
+      <div class="terminal-container">
+        <div id="term"></div>
+      </div>
+
+      <a id="download" href=""></a>
+    </main>
+
+    <script src="./wasm/wasm_exec.js"></script>
+    <script type="module" src="./app/main.js?v=202508232125"></script>
+  </body>
 </html>

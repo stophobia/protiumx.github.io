@@ -20,8 +20,8 @@ const simia = {
     if (res.status !== 200) {
       throw new Error("couldn't load simia wasm: " + res.statusText);
     }
-    const result = await WebAssembly.instantiateStreaming(res, go.importObject);
 
+    const result = await WebAssembly.instantiateStreaming(res, go.importObject);
     // Redirect write to xterm
     let outputBuf = "";
     window.fs.writeSync = (fd, buf) => {
@@ -53,8 +53,8 @@ const simia = {
         case "c": {
           if (ev.ctrlKey) {
             listener.dispose();
-            term.write("\x1b[2J");
-            term.write("\x1b[0;0f");
+            term.write("\x1b[2J"); // clear screen
+            term.write("\x1b[0;0f"); // move to home
             onProcessExit();
           }
           break;
