@@ -29,8 +29,7 @@ const rm = {
       const file = fileSystem.get(fileName);
       if (!file) {
         term.writeln(
-          colorize(TermColors.Red, "[error]: ") +
-            `"${fileName}": No such a file or directory`,
+          colorize(TermColors.Red, "[error]: ") + `"${fileName}": No such a file or directory`,
         );
       } else {
         fileSystem.remove(fileName);

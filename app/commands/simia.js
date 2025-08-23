@@ -85,8 +85,7 @@ const simia = {
         }
       }
 
-      const hasModifier =
-        ev.altKey || ev.altGraphKey || ev.ctrlKey || ev.metaKey;
+      const hasModifier = ev.altKey || ev.altGraphKey || ev.ctrlKey || ev.metaKey;
 
       if (!hasModifier && isPrintableKeyCode(ev.keyCode)) {
         term.write(key);

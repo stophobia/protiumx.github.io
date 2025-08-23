@@ -11,19 +11,17 @@ const cat = {
     for (const fileName of args) {
       const file = fileSystem.get(fileName);
       if (!file) {
-        term.write(
-          colorize(TermColors.Red, "[error]: ") +
-            `"${fileName}": No such a file`,
-        );
+        term.write(colorize(TermColors.Red, "[error]: ") + `"${fileName}": No such a file`);
         continue;
       }
+
       if (!file.name.includes(".md")) {
         term.write(
-          colorize(TermColors.Red, "[error]: ") +
-            `"${file.name}": file encoding not supported`,
+          colorize(TermColors.Red, "[error]: ") + `"${file.name}": file encoding not supported`,
         );
         continue;
       }
+
       for (const line of file.content.split("\n")) {
         if (line.startsWith("#")) {
           term.writeln(colorize(TermColors.Green, line));

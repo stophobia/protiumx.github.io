@@ -20,12 +20,7 @@ const randc = {
       });
       clearTimeout(id);
       if (!res.ok) {
-        term.writeln(
-          colorize(
-            TermColors.Red,
-            `[error] no catos today :( -- ${res.statusText}`,
-          ),
-        );
+        term.writeln(colorize(TermColors.Red, `[error] no catos today :( -- ${res.statusText}`));
       } else {
         const [cat] = await res.json();
         term.writeln(colorize(TermColors.Green, "opening cato..."));
@@ -33,9 +28,7 @@ const randc = {
         window.open(cat.url);
       }
     } catch (e) {
-      term.writeln(
-        colorize(TermColors.Red, `[error] no catos today :( -- ${e.message}`),
-      );
+      term.writeln(colorize(TermColors.Red, `[error] no catos today :( -- ${e.message}`));
     }
   },
 };

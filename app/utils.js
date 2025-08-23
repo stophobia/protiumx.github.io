@@ -40,6 +40,7 @@ export function isPrintableKeyCode(keyCode) {
 }
 
 /**
+ * Handles backspace in multi line context
  * @param {string} input
  * @returns {string}
  */

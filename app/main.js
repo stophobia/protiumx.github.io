@@ -93,10 +93,7 @@ function createOnKeyHandler(term) {
         if (ev.key === "ArrowDown") {
           if (currentHistoryPosition === commandHistory.length) return;
 
-          currentHistoryPosition = Math.min(
-            commandHistory.length,
-            currentHistoryPosition + 1,
-          );
+          currentHistoryPosition = Math.min(commandHistory.length, currentHistoryPosition + 1);
         } else {
           currentHistoryPosition = Math.max(0, currentHistoryPosition - 1);
         }

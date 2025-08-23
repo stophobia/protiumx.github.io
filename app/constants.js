@@ -7,7 +7,6 @@ export const TermColors = {
   Reset: "\x1b[0m",
 };
 
-export const SHELL_PROMPT =
-  TermColors.Purple + "anonymous:~$ " + TermColors.Reset;
+export const SHELL_PROMPT = TermColors.Purple + "anonymous:~$ " + TermColors.Reset;
 
 export const HistorySize = 100;
